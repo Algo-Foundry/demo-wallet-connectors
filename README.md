@@ -10,7 +10,7 @@ yarn install
 
 ### 2. Update environement variables
 1. Copy `.env.example` to `.env`.
-2. Update sandbox credentials in `.env` file.
+2. Update Algorand Sandbox credentials in `.env` file.
 
 ### 3. Run the Dapp on localhost
 ```
