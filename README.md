@@ -1,6 +1,4 @@
 # Wallet Connector Demo
-This is a boilerplate Dapp using Algobuilder and Vue.js (Vue 2).
-
 Please note that MyAlgo and Pera Algo Wallet (WalletConnect) requires you to create accounts in TestNet and fund them to carry out transactions. Use the [dispenser](https://bank.testnet.algorand.network/) to fund your accounts first.
 
 ## Setup instructions
