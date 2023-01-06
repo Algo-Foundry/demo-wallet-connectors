@@ -51,9 +51,7 @@ export default {
                 this.network = "TestNet";
 
                 const myAlgoWallet = new MyAlgoConnect();
-                const accounts = await myAlgoWallet.connect({
-                    openManager: true
-                });
+                const accounts = await myAlgoWallet.connect();
                 this.sender = accounts[0].address;
                 this.receiver = accounts[1].address;
                 this.connection = "myalgo";
