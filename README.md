@@ -12,7 +12,12 @@ yarn install
 
 2. Copy `.env.example` to `.env`.
 
-3. Run the Dapp on localhost
+3. Set env var
+```
+source .env
+```
+
+4. Run the Dapp on localhost
 ```
 yarn serve
 ```
