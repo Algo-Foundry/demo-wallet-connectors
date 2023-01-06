@@ -25,6 +25,9 @@ const sendAlgoSignerTransaction = async (txn, algodClient) => {
             const response = await algodClient.sendRawTransaction(binarySignedTx).do();
             console.log(response);
 
+            // wait for blockchain confirmation within 4 rounds
+            await algosdk.waitForConfirmation(algodClient, response.txId, 4);
+
             return response;
         } catch (err) {
             console.error(err);
@@ -61,6 +64,9 @@ const sendWalletConnectTransaction = async (connector, txn, algodClient) => {
         const response = await algodClient.sendRawTransaction(decodedResult).do();
         console.log(response);
 
+        // wait for blockchain confirmation within 4 rounds
+        await algosdk.waitForConfirmation(algodClient, response.txId, 4);
+
         return response;
     } catch (err) {
         console.error(err);
@@ -74,6 +80,9 @@ const sendMyAlgoTransaction = async (txn, algodClient) => {
         const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());
         const response = await algodClient.sendRawTransaction(signedTxn.blob).do();
         console.log(response);
+
+        // wait for blockchain confirmation within 4 rounds
+        await algosdk.waitForConfirmation(algodClient, response.txId, 4);
 
         return response;
     } catch (err) {
