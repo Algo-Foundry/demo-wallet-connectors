@@ -18,7 +18,7 @@ const createSendAlgosTxn = async (from, to, algosToSend, algodClient) => {
 const sendPaymentTxn = async (connection, connector, from, to, algosToSend, network) => {
     const algodClient = getAlgodClient(network);
     const txn = await createSendAlgosTxn(from, to, algosToSend, algodClient);
-    console.log(connection);
+    
     switch (connection) {
         case "perawallet":
             return await wallets.sendPeraWalletTransaction(connector, txn, algodClient);
