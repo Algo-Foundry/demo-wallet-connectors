@@ -13,8 +13,8 @@ Please create your sender and receiver accounts on those wallets first. Use the 
 
 Also, do switch the Algorand network to TestNet on both Pera and Defly app before using the demo.
 
-Pera: Settings > Developer Settings > Node Settings > TestNet
-Defly: More > Preferences > Advanced > Developer Mode > TestNet 
+- Pera: Settings > Developer Settings > Node Settings > TestNet
+- Defly: More > Preferences > Advanced > Developer Mode > TestNet 
 
 ## Setup instructions
 
