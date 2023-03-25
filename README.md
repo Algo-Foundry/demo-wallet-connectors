@@ -1,7 +1,13 @@
 # Wallet Connector Demo
-Please note that MyAlgo and Pera Algo Wallet (WalletConnect) requires you to create accounts in TestNet and fund them to carry out transactions. Use the [dispenser](https://bank.testnet.algorand.network/) to fund your accounts first.
+This demo showcases the available wallet connectors for Algorand Dapps. They include,
 
-This demo requires you to have at least 2 accounts for each connector (sender and receiver).
+1. [Pera Algo Wallet](https://github.com/perawallet/connect)
+2. [Defly Wallet](https://github.com/blockshake-io/defly-connect)
+3. [Walletconnect](https://developer.algorand.org/docs/get-details/walletconnect/)
+
+Walletconnect is previously used to connect to Pera Algo Wallet, but Pera Algo Wallet has since introduced their own library to do the same.
+
+Please create your sender and receiver accounts on those wallets first. Use the [dispenser](https://bank.testnet.algorand.network/) to fund your sender account.
 
 ## Setup instructions
 

@@ -11,7 +11,7 @@
             </div>
             <div class="mb-3">
                 <label for="receiver" class="form-label">Receiver</label>
-                <input type="string" class="form-control" id="receiver" v-model="receiverAddr" />
+                <input type="string" class="form-control" id="receiver" v-model="receiver" />
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
         </form>
@@ -20,58 +20,44 @@
 
 <script>
 import algosdk from "algosdk";
-import sendalgos from "../sendalgos.js";
+import txns from "../txns";
 import WalletConnect from "@walletconnect/client";
+import { PeraWalletConnect } from "@perawallet/connect";
+import { DeflyWalletConnect } from "@blockshake/defly-connect";
 
 export default {
     props: {
         connection: String,
-        walletConnector: WalletConnect,
+        walletclient: [WalletConnect, PeraWalletConnect, DeflyWalletConnect],
         network: String,
         sender: String,
-        receiver: String,
     },
     data() {
         return {
             txId: "",
-            receiverAddr: "",
+            receiver: "TP3SP4KTN3FLY6PVO4J57SE4OHG7UE6STCAHZYKSY3CP4ENB3MOOJFKAYE",
             amount: algosdk.algosToMicroalgos(0.1),
             explorerURL: "",
         };
     },
-    watch: {
-        receiver: function (newVal) {
-            // updates receiver address on connector change
-            this.receiverAddr = newVal;
-        },
-    },
     methods: {
         async sendAlgos() {
-            let response;
+            try {
+                const response = await txns.sendPaymentTxn(
+                    this.connection,
+                    this.walletclient,
+                    this.sender,
+                    this.receiver,
+                    this.amount,
+                    this.network
+                );
 
-            switch (this.connection) {
-                case "algosigner":
-                    response = await sendalgos.viaAlgoSigner(this.sender, this.receiverAddr, this.amount, this.network);
-                    break;
-                case "walletconnect":
-                    response = await sendalgos.viaWalletConnect(
-                        this.walletConnector,
-                        this.sender,
-                        this.receiverAddr,
-                        this.amount,
-                        this.network
-                    );
-                    break;
-                case "myalgo":
-                    response = await sendalgos.viaMyAlgo(this.sender, this.receiverAddr, this.amount, this.network);
-                    break;
-                default:
-                    break;
-            }
-
-            if (response !== undefined) {
-                this.txId = response.txId;
-                this.setExplorerURL(response.txId);
+                if (response !== undefined) {
+                    this.txId = response.txId;
+                    this.setExplorerURL(response.txId);
+                }
+            } catch (err) {
+                alert(err.message);
             }
         },
         setExplorerURL(txId) {
@@ -84,9 +70,6 @@ export default {
                     break;
             }
         },
-    },
-    async mounted() {
-        this.receiverAddr = this.receiver;
-    },
+    }
 };
 </script>
