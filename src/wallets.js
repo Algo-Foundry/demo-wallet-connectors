@@ -62,7 +62,7 @@ const sendDeflyWalletTransaction = async (connector, txn, algodClient) => {
 };
 
 const submitTxns = async (algodClient, signedTxnsData) => {
-    // submit to chain and wait for confirmation
+    // submit txn to chain and wait for confirmation
     const response = await algodClient.sendRawTransaction(signedTxnsData).do();
 
     await algosdk.waitForConfirmation(algodClient, response.txId, 4);
