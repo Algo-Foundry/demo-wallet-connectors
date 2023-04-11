@@ -5,6 +5,7 @@
             <button @click="connectToWalletConnect" class="btn btn-primary mr-3">WalletConnect</button>
             <button @click="connectToPeraWallet" class="btn btn-primary mr-3">Pera Wallet</button>
             <button @click="connectToDeflyWallet" class="btn btn-primary mr-3">Defly Wallet</button>
+            <button @click="connectToSandNet" class="btn btn-primary mr-3">Sandbox (SandNet)</button>
         </div>
         <div v-if="this.sender !== ''" class="mb-5">
             <h3>Connected</h3>
@@ -34,6 +35,7 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import { PeraWalletConnect } from "@perawallet/connect";
 import { DeflyWalletConnect } from "@blockshake/defly-connect";
+import kmd from "../kmd";
 
 export default {
     data() {
@@ -45,6 +47,15 @@ export default {
         };
     },
     methods: {
+        async connectToSandNet() {
+            this.network = "SandNet";
+            const accounts = await kmd.getSandboxAccounts();
+            this.sender = accounts[0].addr;
+            this.connection = "sandbox";
+
+            // we will use pass the secret key of this sandbox account via walletclient
+            this.walletclient = accounts[0].sk;
+        },
         async connectToWalletConnect() {
             // force connection to TestNet
             this.network = "TestNet";

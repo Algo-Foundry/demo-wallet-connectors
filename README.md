@@ -4,10 +4,14 @@ This demo showcases the available wallet connectors for Algorand Dapps. They inc
 1. [Pera Algo Wallet](https://github.com/perawallet/connect)
 2. [Defly Wallet](https://github.com/blockshake-io/defly-connect)
 3. [Walletconnect](https://developer.algorand.org/docs/get-details/walletconnect/)
+4. Sandbox
 
 Walletconnect is previously used to connect to Pera Algo Wallet, but Pera Algo Wallet has since introduced their own library to do the same.
 
 Please create your sender and receiver accounts on those wallets first. Use the [dispenser](https://bank.testnet.algorand.network/) to fund your sender account.
+
+## Sandbox
+Please ensure that your sandbox is up and running before connecting to sandbox. It will use the first pre defined account on the kmd wallet to send transactions. The network used will be `SandNet`.
 
 ## Switching to TestNet
 

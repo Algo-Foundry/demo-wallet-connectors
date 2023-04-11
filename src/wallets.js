@@ -61,6 +61,13 @@ const sendDeflyWalletTransaction = async (connector, txn, algodClient) => {
     return submitTxns(algodClient, signedTxns);
 };
 
+const sendSandboxTransaction = async (connector, txn, algodClient) => {
+    // for sandbox, connector is the secret key of the connected account
+    const signedTxn = txn.signTxn(connector);
+
+    return submitTxns(algodClient, signedTxn);
+}
+
 const submitTxns = async (algodClient, signedTxnsData) => {
     // submit txn to chain and wait for confirmation
     const response = await algodClient.sendRawTransaction(signedTxnsData).do();
@@ -73,5 +80,6 @@ const submitTxns = async (algodClient, signedTxnsData) => {
 export default {
     sendWalletConnectTransaction,
     sendPeraWalletTransaction,
-    sendDeflyWalletTransaction
+    sendDeflyWalletTransaction,
+    sendSandboxTransaction
 };
