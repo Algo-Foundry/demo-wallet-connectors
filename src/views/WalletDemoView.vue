@@ -104,25 +104,32 @@ export default {
             // force connection to TestNet
             this.network = "TestNet";
 
-            this.walletclient = await new PeraWalletConnect();
-
             // reconnect session if it exists
-            let accounts = await this.walletclient.reconnectSession();
+            try {
+                this.walletclient = await new PeraWalletConnect();
 
-            if (accounts.length <= 0) {
-                accounts = await this.walletclient.connect();
-            }
+                let accounts = await this.walletclient.reconnectSession();
 
-            // disconnect listener
-            this.walletclient.connector?.on("disconnect", (error) => {
-                if (error) {
-                    throw error;
+                if (accounts.length <= 0) {
+                    accounts = await this.walletclient.connect();
                 }
-            });
 
-            // you will need pera wallet instance to sign transactions
-            this.sender = accounts[0];
-            this.connection = "perawallet";
+                // disconnect listener
+                this.walletclient.connector?.on("disconnect", (error) => {
+                    if (error) {
+                        throw error;
+                    }
+                });
+
+                // you will need pera wallet instance to sign transactions
+                this.sender = accounts[0];
+                this.connection = "perawallet";
+            } catch (error) {
+                console.log(error);
+                if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
+                    // log the necessary errors
+                }
+            }
         },
         async connectToDeflyWallet() {
             // force connection to TestNet
@@ -131,20 +138,27 @@ export default {
             this.walletclient = new DeflyWalletConnect();
 
             // reconnect session if it exists
-            let accounts = await this.walletclient.reconnectSession();
+            try {
+                let accounts = await this.walletclient.reconnectSession();
 
-            if (accounts.length <= 0) {
-                accounts = await this.walletclient.connect();
-            }
-
-            this.walletclient.connector?.on("disconnect", (error) => {
-                if (error) {
-                    throw error;
+                if (accounts.length <= 0) {
+                    accounts = await this.walletclient.connect();
                 }
-            });
 
-            this.sender = accounts[0];
-            this.connection = "deflywallet";
+                this.walletclient.connector?.on("disconnect", (error) => {
+                    if (error) {
+                        throw error;
+                    }
+                });
+
+                this.sender = accounts[0];
+                this.connection = "deflywallet";
+            } catch (error) {
+                console.log(error);
+                if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
+                    // log the necessary errors
+                }
+            }
         },
         async disconnect() {
             switch (this.connection) {
