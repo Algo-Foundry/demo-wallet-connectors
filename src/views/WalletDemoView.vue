@@ -106,27 +106,23 @@ export default {
 
             this.walletclient = await new PeraWalletConnect();
 
-            try {
-                // reconnect session if it exists
-                let accounts = await this.walletclient.reconnectSession();
+            // reconnect session if it exists
+            let accounts = await this.walletclient.reconnectSession();
 
-                if (accounts.length <= 0) {
-                    accounts = await this.walletclient.connect();
-                }
-
-                // disconnect listener
-                this.walletclient.connector?.on("disconnect", (error) => {
-                    if (error) {
-                        throw error;
-                    }
-                });
-
-                // you will need pera wallet instance to sign transactions
-                this.sender = accounts[0];
-                this.connection = "perawallet";
-            } catch (err) {
-                console.error(err);
+            if (accounts.length <= 0) {
+                accounts = await this.walletclient.connect();
             }
+
+            // disconnect listener
+            this.walletclient.connector?.on("disconnect", (error) => {
+                if (error) {
+                    throw error;
+                }
+            });
+
+            // you will need pera wallet instance to sign transactions
+            this.sender = accounts[0];
+            this.connection = "perawallet";
         },
         async connectToDeflyWallet() {
             // force connection to TestNet
