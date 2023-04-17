@@ -125,7 +125,6 @@ export default {
                 this.sender = accounts[0];
                 this.connection = "perawallet";
             } catch (error) {
-                console.log(error);
                 if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
                     // log the necessary errors
                 }
@@ -154,7 +153,6 @@ export default {
                 this.sender = accounts[0];
                 this.connection = "deflywallet";
             } catch (error) {
-                console.log(error);
                 if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
                     // log the necessary errors
                 }
