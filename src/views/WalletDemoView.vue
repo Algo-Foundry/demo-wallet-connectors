@@ -50,11 +50,8 @@ export default {
         async connectToSandNet() {
             this.network = "SandNet";
             const accounts = await kmd.getSandboxAccounts();
-            this.sender = accounts[0].addr;
+            this.sender = accounts[0];
             this.connection = "sandbox";
-
-            // we will use pass the secret key of this sandbox account via walletclient
-            this.walletclient = accounts[0].sk;
         },
         async connectToWalletConnect() {
             // force connection to TestNet
